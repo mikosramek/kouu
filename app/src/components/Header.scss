@@ -1,0 +1,84 @@
+.nav-button {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 2.5rem;
+  transition: left 0.35s;
+  &:hover{
+    color: #292929;
+  }
+}
+.side-nav {
+  position: absolute;
+  left: -250px;
+  top: 0;
+  height:100%;
+  width: 250px;
+  background-color: #E0E3E8;
+  color: #353840;
+  transition: left 0.35s;
+  li {
+    font-size: 1.8rem;
+    margin: 10px 0;
+    width: 100%;
+  }
+  button {
+    border: none;
+    width:90%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-left: 5%;
+    background: none;
+    border-radius: 10px;
+    transition: background 0.15s;
+    text-align: left;
+    cursor: pointer;
+    i {
+      padding-right: 10px;
+    }
+    &:hover,
+    &:focus {
+      background: darken(#E0E3E8, 5);
+      outline: none;
+      box-shadow: 0 0 0 1px darken(#E0E3E8, 10);
+    }
+    &:active {
+      background: darken(#E0E3E8, 15);
+    }
+  }
+  .-user {
+    min-height: 10vh;
+    padding: 20px 0;
+    font-size: 2.4rem;
+    text-align: center;
+    margin: 0 0 10px;
+    color: #E0E3E8;
+    background-color: #353840;
+  }
+  .-divider {
+    padding: 0px 0px 10px;
+    svg {
+      width: calc(100% - 20px);
+      margin: 0 10px;
+      height: 5px;
+      stroke-width: 5px;
+      border-radius: 50px;
+      stroke: darken(#E0E3E8, 20);
+    }
+  }
+}
+
+.side-nav.shifted{
+  left: 0px;
+}
+.nav-button.shifted {
+  left: 250px;
+}
