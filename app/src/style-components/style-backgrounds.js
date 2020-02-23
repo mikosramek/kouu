@@ -16,6 +16,8 @@ Backgrounds.Main = styled.main`
   min-height: 85vh;
   background-image: url(${bg});
   background-size: 25%;
+  padding-top: 50px;
+  padding-bottom: 50px;
 `
 //animation: ${keyframes.translateBackground} 25s linear infinite;
 Backgrounds.Footer = styled.footer`

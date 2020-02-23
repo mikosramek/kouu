@@ -24,8 +24,8 @@ const Header = (props) => {
           <ul>
             {
               props.isLoggedIn
-                ? <LoggedInNav user = {props.user} ac={props.ac} />
-                : <li><AccountForm ac={props.ac} /></li>
+                ? <LoggedInNav user={props.user} logOut={props.logOut} hideMenu={() => setMenuShowing(false)} />
+                : <li><AccountForm logIn={props.logIn} accountAction={props.accountAction} class={"nav-login"} /></li>
             }
           </ul>
         </nav>

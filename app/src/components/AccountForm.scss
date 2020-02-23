@@ -1,0 +1,51 @@
+@import '../styles/variables.scss';
+
+.account-form {
+  // border: 1px solid gray;
+  // background-color: $primary;
+  width: 90%;
+  margin: 0 auto;
+  padding: 15px;
+  font-size: 1.8rem;
+  form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  label {
+    margin-top: 10px;
+  }
+  p {
+    padding: 15px;
+    text-align: center;
+  }
+  button,
+  &.nav-login button {
+    margin: 10px auto;
+    background-color: transparentize($highlight, 0.1);
+    display: block;
+    text-align: center;
+    &:hover,
+    &:focus {
+      background: darken($highlight, 10);
+      outline: none;
+      box-shadow: 0 0 0 1px darken($highlight, 10);
+    }
+    &:active {
+      background: darken($highlight, 15);
+    }
+  }
+  &.main-login {
+    width: 50%;
+    form {
+      margin-top: 15px;
+    }
+  }
+}
+
+.account-form-link {
+  color: $highlight;
+  text-decoration: underline;
+  cursor: pointer;
+}
