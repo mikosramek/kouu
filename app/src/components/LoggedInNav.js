@@ -27,7 +27,7 @@ const LoggedInNav = (props) => {
         </svg>
       </li>
       <MenuButton icon='far fa-question-circle' text='About' action={() => { navigate('about');  }} />
-      <MenuButton icon='fa-sign-out-alt' text='Log Out' action={() => dispatch(logout)} />
+      <MenuButton icon='fa-sign-out-alt' text='Log Out' action={() => dispatch(logout())} />
     </>
   )
 }
