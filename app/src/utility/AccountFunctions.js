@@ -1,3 +1,4 @@
+import { login } from '../connect/actions';
 import axios from 'axios';
 
 const queryApi = (path, params) => {

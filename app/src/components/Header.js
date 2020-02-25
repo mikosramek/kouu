@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Backgrounds from '../style-components/style-backgrounds';
 import { H1 } from '../style-components/style-text';
@@ -24,8 +25,8 @@ const Header = (props) => {
           <ul>
             {
               props.isLoggedIn
-                ? <LoggedInNav user={props.user} logOut={props.logOut} hideMenu={() => setMenuShowing(false)} />
-                : <li><AccountForm logIn={props.logIn} accountAction={props.accountAction} class={"nav-login"} /></li>
+                ? <LoggedInNav hideMenu={() => setMenuShowing(false)} />
+                : <li><AccountForm accountAction={props.accountAction} class={"nav-login"} /></li>
             }
           </ul>
         </nav>
@@ -34,4 +35,10 @@ const Header = (props) => {
   )
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn
+  }
+}
+
+export default connect(mapStateToProps)(Header);

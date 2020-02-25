@@ -1,35 +1,28 @@
 import React from 'react';
-
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 
+import reducer from './connect/reducer';
+
 import './styles/style.scss';
 
+const store = createStore(reducer, composeWithDevTools());
+
 function App() {
-  const [user, setUser] = React.useState({});
-  const [isLoggedIn, setLoggedIn] = React.useState(false);
-  const [isAttemptingAccountAction, setAccountAction] = React.useState(false);
-
-  const logOut = () => {
-    setUser({});
-    setLoggedIn(false);
-  }
-
-  const logIn = (user) => {
-    setUser(user);
-    setLoggedIn(true);
-    setAccountAction(false);
-  }
-  
   return (
-    <Router>
-      <Header user={user} isLoggedIn={isLoggedIn} logOut={logOut} logIn={logIn} accountAction={[isAttemptingAccountAction, setAccountAction]} />
-      <Main user={user} isLoggedIn={isLoggedIn} logIn={logIn} accountAction={[isAttemptingAccountAction, setAccountAction]} />
-      <Footer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Main />
+        <Footer />
+      </Router>
+    </Provider>
   );
 }
 
