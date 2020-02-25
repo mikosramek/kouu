@@ -20,7 +20,7 @@ const AccountForm = (props) => {
     switch(formState){
       case 'login': 
         dispatch(attemptLogin());
-        setTimeout(() => AccountFunctions.logIn('migo', 'migo', loginCallback), 3000)
+        AccountFunctions.logIn('migo', 'migo', loginCallback);
         break;
       case 'signup':
         AccountFunctions.signUp(formData);

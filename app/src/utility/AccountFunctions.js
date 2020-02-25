@@ -1,19 +1,21 @@
-import { login } from '../connect/actions';
 import axios from 'axios';
 
-const queryApi = (path, params) => {
+const queryApi = (path, method, params, body) => {
+  console.log(body);
   return axios({
-    method: 'GET',
+    method: method,
     url: `http://localhost:3001/${path}`,
     dataResponse: 'json',
-    params: params
+    params: params,
+    data: body,
   });
 }
+
 
 const AccountFunctions = {};
 
 AccountFunctions.logIn = (email, password, callback) => {
-  queryApi('login').then( (result) => {
+  queryApi('login', 'POST', {}, {user:email, pass:password}).then( (result) => {
     callback(result.data);
   }).catch( (error) => {
     console.log(error);

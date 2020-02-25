@@ -1,11 +1,11 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "",
+  "description": "The backend for KOUU",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Miko Sramek",
   "license": "ISC"
 }

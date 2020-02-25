@@ -56,7 +56,7 @@ const Main = (props) => {
             </>
           : <>
               <Intro />
-              <AccountForm accountAction={props.accountAction} class="main-login" />
+              <AccountForm class="main-login" />
             </>
         }
       </Backgrounds.Wrapper>
@@ -66,7 +66,6 @@ const Main = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
     isLoggedIn: state.isLoggedIn
   }
 }

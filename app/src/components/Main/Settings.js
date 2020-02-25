@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const Settings = () => {
   return(
@@ -6,4 +7,10 @@ const Settings = () => {
   )
 }
 
-export default Settings;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Settings);
