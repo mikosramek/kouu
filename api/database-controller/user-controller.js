@@ -20,17 +20,17 @@ const users =
   },
 ]
 
-const database = {};
+const userController = {};
 
-database.getUser = (login, password) => {
-  let userToReturn;
+userController.getUser = (login, password) => {
+  let userToReturn = null;
   users.forEach((user) => {
-    if(user.email === login && user.password === password){
+    if((user.email === login || user.name === login) && user.password === password){
       userToReturn = user;
     }
   });
   if(userToReturn) return userToReturn
-  return { error:'Username and/or password are incorrect.' }
+  return false;
 }
 
-module.exports = database;
+module.exports = userController;

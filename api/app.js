@@ -1,11 +1,27 @@
 'use strict'
-const http = require('http');
-const PORT = 3001;
+require('dotenv').config();
 
-const routes = require('./routes');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const server = http.createServer(routes);
+const router = require('./router');
 
-server.listen(PORT, () => {
-  console.log(`Server started on: localhost:${PORT}`)
+const app = express();
+
+
+app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.use('/api/v1/', router);
+
+app.use('/', (req, res, next) => {
+  return res.status(404).send({ error: `Endpoint doesn't exist.`, message: `API is located at /api/v1/` });
+});
+
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => {
+  console.log(`Running on: localhost:${PORT}`);
 });
