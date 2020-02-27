@@ -6,7 +6,7 @@ import Signup from './Account/Signup';
 import Loading from './Account/Loading';
 
 import AccountFunctions from '../utility/AccountFunctions';
-import { login, attemptLogin } from '../connect/actions';
+import { login, attemptLogin, loginFailed } from '../connect/actions';
 
 import './AccountForm.scss';
 
@@ -19,8 +19,8 @@ const AccountForm = (props) => {
     setFormState('loading');
     switch(formState){
       case 'login': 
-        dispatch(attemptLogin());
-        AccountFunctions.logIn('migo', 'migo', loginCallback);
+        console.log(formData);
+        tryToLogin(formData);
         break;
       case 'signup':
         AccountFunctions.signUp(formData);
@@ -32,11 +32,15 @@ const AccountForm = (props) => {
         console.error('no from state set');
     }
   }
-  const loginCallback = data => {
-    dispatch(login(data));
-  }
-  const changeFormState = state => {
-    setFormState(state);
+
+  const tryToLogin = ({email, password}) => {
+    dispatch(attemptLogin());
+    AccountFunctions.logIn(email, password).then(data => {
+      dispatch(login(data));
+    }).catch((error) => {
+      dispatch(loginFailed(error));
+      setFormState('login');
+    });
   }
 
   const forms = {
@@ -56,10 +60,10 @@ const AccountForm = (props) => {
             } 
             <p>
               { formState === 'login'
-                ? <span className='account-form-link' onClick={() => changeFormState('signup')}>Sign Up</span> 
-                : <span className='account-form-link' onClick={() => changeFormState('login')}>Log In</span>
+                ? <span className='account-form-link' onClick={() => setFormState('signup')}>Sign Up</span> 
+                : <span className='account-form-link' onClick={() => setFormState('login')}>Log In</span>
               }
-              <span> or </span><span className='account-form-link' onClick={() => changeFormState('login')}>Reset your password</span>.
+              <span> or </span><span className='account-form-link' onClick={() => setFormState('login')}>Reset your password</span>.
             </p>
           </>
       }
