@@ -18,7 +18,7 @@ router.post('/login', (req, res) => {
     if(user){
       return res.send(user);
     }else {
-      return res.status(400).send({ error: 'Something failed!' });
+      return res.status(401).send({ error: 'Username or Password bad.' });
     }
   }
   return res.status(400).send({ error: 'No data sent!' });
