@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import WordFunctions from '../../utility/WordFunctions';
 
@@ -31,4 +32,11 @@ const Play = () => {
   )
 }
 
-export default Play;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+
+export default connect(mapStateToProps)(Play);

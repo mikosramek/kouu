@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const Progress = () => {
   return(
@@ -6,4 +7,11 @@ const Progress = () => {
   )
 }
 
-export default Progress;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+
+export default connect(mapStateToProps)(Progress);

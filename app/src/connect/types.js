@@ -1,0 +1,4 @@
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const ATTEMPTING_ACCOUNT_ACTION = 'ATTEMPTING_ACCOUNT_ACTION';
+export const FAILED_LOGIN = 'FAILED_LOGIN';

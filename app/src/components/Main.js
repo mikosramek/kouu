@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './Main.scss';
 
@@ -18,22 +19,22 @@ import FourOhFour from './Main/404';
 const Main = (props) => {
 
   const pages = [ 
-    { page: <Home isLoggedIn={props.isLoggedIn} />,
+    { page: <Home />,
       path: '/'
     }, 
-    { page: <Play isLoggedIn={props.isLoggedIn} />,
+    { page: <Play />,
       path: '/play'
     }, 
-    { page: <Progress isLoggedIn={props.isLoggedIn} />,
+    { page: <Progress />,
       path: '/progress'
     }, 
-    { page: <Notes isLoggedIn={props.isLoggedIn} />,
+    { page: <Notes />,
       path: '/notes'
     }, 
-    { page: <Settings isLoggedIn={props.isLoggedIn} />,
+    { page: <Settings />,
       path: '/settings'
     }, 
-    { page: <About isLoggedIn={props.isLoggedIn} />,
+    { page: <About />,
       path: '/about'
     }
   ];
@@ -55,7 +56,7 @@ const Main = (props) => {
             </>
           : <>
               <Intro />
-              <AccountForm logIn={props.logIn} accountAction={props.accountAction} class="main-login" />
+              <AccountForm class="main-login" />
             </>
         }
       </Backgrounds.Wrapper>
@@ -63,4 +64,10 @@ const Main = (props) => {
   )
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn
+  }
+}
+
+export default connect(mapStateToProps)(Main);

@@ -1,10 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { logout } from '../connect/actions';
 import MenuButton from './MenuButton';
 
 const LoggedInNav = (props) => {
   const {name, points} = props.user;
+  const { dispatch } = props;
 
   const navigate = redirect => {
     props.history.push(`/${redirect}`);
@@ -24,9 +27,13 @@ const LoggedInNav = (props) => {
         </svg>
       </li>
       <MenuButton icon='far fa-question-circle' text='About' action={() => { navigate('about');  }} />
-      <MenuButton icon='fa-sign-out-alt' text='Log Out' action={props.logOut} />
+      <MenuButton icon='fa-sign-out-alt' text='Log Out' action={() => dispatch(logout())} />
     </>
   )
 }
-
-export default withRouter(LoggedInNav);
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+export default connect(mapStateToProps)(withRouter(LoggedInNav));
