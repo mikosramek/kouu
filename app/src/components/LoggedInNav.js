@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { logout } from '../connect/actions';
-import MenuButton from './MenuButton';
+import MenuButton from './Nav/MenuButton';
 
 const LoggedInNav = (props) => {
   const {name, points} = props.user;

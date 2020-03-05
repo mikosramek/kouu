@@ -6,6 +6,10 @@ export const H1 = styled.h1`
   font-size:2.4rem;
   color: ${v.white};
   text-align: right;
+  a {
+    color: ${v.white};
+    text-decoration: none;
+  }
 `
 export const P = styled.p`
   padding: 5px 0;

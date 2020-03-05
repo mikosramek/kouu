@@ -6,12 +6,14 @@ import Backgrounds from '../style-components/style-backgrounds';
 import { H1 } from '../style-components/style-text';
 
 import LoggedInNav from './LoggedInNav';
-import AccountForm from './AccountForm';
+import CustomLink from './Nav/CustomLink';
 
 import './Header.scss';
 
 const Header = (props) => {
   const [isMenuShowing, setMenuShowing] = React.useState(false);
+
+  const {isAttemptingAccountAction, isLoggedIn} = props;
 
   return (
     <Backgrounds.Header>
@@ -24,9 +26,15 @@ const Header = (props) => {
         <nav className={`side-nav${isMenuShowing ? ' shifted' : ''}`}>
           <ul>
             {
-              props.isLoggedIn
+              isLoggedIn
                 ? <LoggedInNav hideMenu={() => setMenuShowing(false)} />
-                : <li><AccountForm class={"nav-login"} /></li>
+                : <li>
+                    <CustomLink className="account-form-link" path="/login" text="Login" disabled={isAttemptingAccountAction} />
+                    <p>or</p>
+                    <CustomLink className="account-form-link" path="/signup" text="Signup" disabled={isAttemptingAccountAction} />
+                    <p>or</p>
+                    <CustomLink className="account-form-link" path="/signup" text="Reset your password" disabled={isAttemptingAccountAction} />
+                  </li>
             }
           </ul>
         </nav>
@@ -37,7 +45,8 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.isLoggedIn,
+    isAttemptingAccountAction: state.isAttemptingAccountAction
   }
 }
 

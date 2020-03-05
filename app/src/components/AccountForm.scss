@@ -20,6 +20,16 @@
     padding: 15px;
     text-align: center;
   }
+  input {
+    border: 1px solid $highlight;
+    padding: 10px 5px;
+    background-color: $primary;
+    &[disabled] {
+      border: 1px solid darken($highlight, 5);
+      background-color: darken($primary, 5);
+      color: 000;
+    }
+  }
   button,
   &.nav-login button {
     margin: 10px auto;
@@ -46,6 +56,13 @@
 
 .account-form-link {
   color: $highlight;
-  text-decoration: underline;
+  text-decoration: none;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  &.disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
 }

@@ -7,7 +7,8 @@ import './Main.scss';
 import Backgrounds from '../style-components/style-backgrounds';
 
 import Intro from './Main/Intro';
-import AccountForm from './AccountForm';
+import Login from './Account/Login';
+import Signup from './Account/Signup'
 import Home from './Main/Home';
 import Play from './Main/Play';
 import Progress from './Main/Progress';
@@ -40,32 +41,35 @@ const Main = (props) => {
   ];
 
   const landingPages = [
-    { page: <Intro />,
+    { 
+      page: <Intro />,
       path: '/'
     }, 
-    { page: <AccountForm />,
+    { 
+      page: <Login />,
       path: '/login'
+    },
+    { 
+      page: <Signup />,
+      path: '/signup'
     },
   ]
 
   return (
     <Backgrounds.Main id="maincontent">
       <Backgrounds.Wrapper>
-        {
-          props.isLoggedIn 
-          ? <Switch>
-              {
-                loggedInPages.map((route) => {
+        <Switch>
+          { 
+            props.isLoggedIn 
+              ? loggedInPages.map((route) => {
                   return <Route key={route.path} exact path = {`${route.path}`} render = {() => route.page} />
                 })
-              }
-              <Route component={FourOhFour} />
-            </Switch>
-          : <Switch>
-              <Intro />
-              <AccountForm class="main-login" />
-            </Switch>
-        }
+              : landingPages.map((route) => {
+                  return <Route key={route.path} exact path = {`${route.path}`} render = {() => route.page} />
+                })
+          }
+          <Route component={FourOhFour} />
+        </Switch>
       </Backgrounds.Wrapper>
     </Backgrounds.Main>
   )
