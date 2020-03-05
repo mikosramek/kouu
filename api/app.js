@@ -9,6 +9,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 const router = require('./router');
+const database = require('./database/database');
 
 const app = express();
 
@@ -21,11 +22,14 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1/', router);
 
 app.use('/', (req, res, next) => {
-  return res.status(404).send({ error: `Endpoint doesn't exist.`, message: `API is located at /api/v1/` });
+  return res.status(404).send({ error: `Endpoint doesn't exist.`, message: `API is located at /api/v1/ or Read docs at /api-docs` });
 });
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
-  console.log(`Running on: localhost:${PORT}`);
-});
+
+new database({}, () => {
+  app.listen(PORT, () => {
+    console.log(`Running on: localhost:${PORT}`);
+  });
+})

@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, ATTEMPTING_ACCOUNT_ACTION, FAILED_LOGIN } from './types';
+import { LOGIN, LOGOUT, ATTEMPTING_ACCOUNT_ACTION, FAILED_ACCOUNT_ACTION } from './types';
 
 const initialState = {
   user: {},
@@ -27,7 +27,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isAttemptingAccountAction: true,
       }
-    case FAILED_LOGIN:
+    case FAILED_ACCOUNT_ACTION:
       return {
         ...state,
         isAttemptingAccountAction: false,

@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, ATTEMPTING_ACCOUNT_ACTION, FAILED_LOGIN } from './types';
+import { LOGIN, LOGOUT, ATTEMPTING_ACCOUNT_ACTION, FAILED_ACCOUNT_ACTION } from './types';
 
 export const login = (userdata) => {
   return {
@@ -13,15 +13,15 @@ export const logout = () => {
   }
 }
 
-export const attemptLogin = () => {
+export const attemptAccountAction = () => {
   return {
     type: ATTEMPTING_ACCOUNT_ACTION,
   }
 }
 
-export const loginFailed = (error) => {
+export const accountActionFailed = (error) => {
   return {
-    type: FAILED_LOGIN,
+    type: FAILED_ACCOUNT_ACTION,
     error: error
   }
 }

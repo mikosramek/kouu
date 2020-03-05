@@ -18,7 +18,7 @@ import FourOhFour from './Main/404';
 
 const Main = (props) => {
 
-  const pages = [ 
+  const loggedInPages = [ 
     { page: <Home />,
       path: '/'
     }, 
@@ -39,25 +39,32 @@ const Main = (props) => {
     }
   ];
 
+  const landingPages = [
+    { page: <Intro />,
+      path: '/'
+    }, 
+    { page: <AccountForm />,
+      path: '/login'
+    },
+  ]
+
   return (
     <Backgrounds.Main id="maincontent">
       <Backgrounds.Wrapper>
         {
           props.isLoggedIn 
-          ? <>
-              <Switch>
-                {
-                  pages.map((route) => {
-                    return <Route key={route.path} exact path = {`${route.path}`} render = {() => route.page} />
-                  })
-                }
-                <Route component={FourOhFour} />
-              </Switch>
-            </>
-          : <>
+          ? <Switch>
+              {
+                loggedInPages.map((route) => {
+                  return <Route key={route.path} exact path = {`${route.path}`} render = {() => route.page} />
+                })
+              }
+              <Route component={FourOhFour} />
+            </Switch>
+          : <Switch>
               <Intro />
               <AccountForm class="main-login" />
-            </>
+            </Switch>
         }
       </Backgrounds.Wrapper>
     </Backgrounds.Main>

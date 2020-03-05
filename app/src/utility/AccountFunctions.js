@@ -25,20 +25,38 @@ const postAPI = (path, body) => {
   });
 }
 
+const putAPI = (path, body) => {
+  return axios({
+    method: 'PUT',
+    url: `http://localhost:3001/${path}`,
+    dataResponse: 'json',
+    data: body,
+    headers: { 'Content-Type' : 'application/json' }
+  });
+}
+
 
 const AccountFunctions = {};
 
 AccountFunctions.logIn = (email, password) => {
   return new Promise((resolve, reject) => {
-    postAPI('login', {user:email, pass:password}).then( (result) => {
-      resolve(result.data);
-    }).catch( (error) => {
-      reject(error);
-    });
+    postAPI('api/v1/accounts/login', {user:email, pass:password})
+      .then(result => {
+        resolve(result.data);
+      }).catch(error => {
+        reject(error);
+      });
   })
 }
-AccountFunctions.signUp = (account, callback) => {
-  console.log('POST account settings', account);
+AccountFunctions.signUp = (name, email, password) => {
+  return new Promise((resolve, reject) => {
+    putAPI('api/v1/accounts/signup', {name: name, email: email, password:password})
+      .then( result => {
+
+      }).catch(error => {
+
+      });
+  });
 }
 AccountFunctions.updateSettings = (account, settings) => {
   console.log('POST updated settings', settings);

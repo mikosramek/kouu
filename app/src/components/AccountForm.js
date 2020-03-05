@@ -6,7 +6,7 @@ import Signup from './Account/Signup';
 import Loading from './Account/Loading';
 
 import AccountFunctions from '../utility/AccountFunctions';
-import { login, attemptLogin, loginFailed } from '../connect/actions';
+import { login, attemptAccountAction, accountActionFailed } from '../connect/actions';
 
 import './AccountForm.scss';
 
@@ -19,11 +19,10 @@ const AccountForm = (props) => {
     setFormState('loading');
     switch(formState){
       case 'login': 
-        console.log(formData);
         tryToLogin(formData);
         break;
       case 'signup':
-        AccountFunctions.signUp(formData);
+        tryToSignup(formData);
         break;
       case 'reset':
         console.log('WIP RESET');
@@ -34,12 +33,22 @@ const AccountForm = (props) => {
   }
 
   const tryToLogin = ({email, password}) => {
-    dispatch(attemptLogin());
+    dispatch(attemptAccountAction());
     AccountFunctions.logIn(email, password).then(data => {
       dispatch(login(data));
-    }).catch((error) => {
-      dispatch(loginFailed(error));
+    }).catch(error => {
+      dispatch(accountActionFailed(error));
       setFormState('login');
+    });
+  }
+
+  const tryToSignup = ({email, name, password}) => {
+    dispatch(attemptAccountAction());
+    AccountFunctions.signUp(email, name, password).then(data => {
+      
+    }).catch(error => {
+      dispatch(accountActionFailed(error));
+      setFormState('signup');
     });
   }
 

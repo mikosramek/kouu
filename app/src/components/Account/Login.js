@@ -20,7 +20,7 @@ const Login = ({action}) => {
 
   return (
     <form onSubmit={submitForm} className="account-login">
-      <label htmlFor="email">Email:</label>
+      <label htmlFor="email">Email / Username:</label>
       <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <label htmlFor="password">Password:</label>
       <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
