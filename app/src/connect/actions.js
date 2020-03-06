@@ -13,6 +13,8 @@ export const logout = () => {
   }
 }
 
+
+
 export const attemptAccountAction = () => {
   return {
     type: ATTEMPTING_ACCOUNT_ACTION,

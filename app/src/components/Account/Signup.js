@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import Input from '../Forms/Input';
 import CustomLink from '../Nav/CustomLink';
 import AccountFunctions from '../../utility/AccountFunctions';
-import { attemptAccountAction, accountActionFailed } from '../../connect/actions';
+import { login, attemptAccountAction, accountActionFailed } from '../../connect/actions';
 
 const Signup = (props) => {
   const {dispatch, isAttemptingAccountAction} = props;
@@ -15,21 +15,35 @@ const Signup = (props) => {
   const [password, setPassword] = React.useState('');
   const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
 
+  // to do - use effects for when passwords are entered
+  // to do - make sure second password matches
+  // to do - maybe make a better email validator
+  // to do - set up error from redux and put it into state
+  // to do - create an error component that dismisses itself
+
   const submitForm = e => {
     e.preventDefault();
     console.log(name, email, password, passwordConfirmation);
+    // to do - set restrictions on form data
     dispatch(attemptAccountAction());
-    // tryToSignup();
+    tryToSignup();
   }
 
-  const tryToSignup = (email, name, password) => {
+  const tryToSignup = () => {
     dispatch(attemptAccountAction());
     AccountFunctions.signUp(email, name, password).then(data => {
-      props.history.push('/');
+      AccountFunctions.logInWithSession(data.session_id).then(result => {
+        dispatch(login(result));
+        props.history.push('/');
+      }).catch(error => {
+        dispatch(accountActionFailed(error));
+      });
     }).catch(error => {
       dispatch(accountActionFailed(error));
     });
   }
+
+  // to do - add error messages
   return (
     <div className={`account-form main-login`}>
       <form onSubmit={submitForm} className="account-signup">

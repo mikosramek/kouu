@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './Main.scss';
-
 import Backgrounds from '../style-components/style-backgrounds';
 
 import Intro from './Main/Intro';

@@ -35,9 +35,10 @@ router.post('/login', (req, res) => {
 router.put('/signup', (req, res) => {
   const { name, email, password } = req.body;
   const session_id = CreateSessionID();
+  console.log(req.body);
   userController.signUserUp(name, email, password, 1, 0, CreateEmailCode(), session_id)
     .then(() => {
-      return res.status(200).send({message: 'Account created', session_id: session_id});
+      return res.status(200).send({session_id: session_id});
     }).catch(e => {
       return res.status(401).send({ error: e });
     });

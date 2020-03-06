@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { logout } from '../connect/actions';
+import AccountFunctions from '../utility/AccountFunctions';
 import MenuButton from './Nav/MenuButton';
 
 const LoggedInNav = (props) => {
@@ -12,6 +13,13 @@ const LoggedInNav = (props) => {
   const navigate = redirect => {
     props.history.push(`/${redirect}`);
     props.hideMenu();
+  }
+
+  const logoutAction = () => {
+    AccountFunctions.logOut().then(() => {
+      dispatch(logout());
+      navigate('');
+    });
   }
 
   return(
@@ -27,7 +35,7 @@ const LoggedInNav = (props) => {
         </svg>
       </li>
       <MenuButton icon='far fa-question-circle' text='About' action={() => { navigate('about');  }} />
-      <MenuButton icon='fa-sign-out-alt' text='Log Out' action={() => dispatch(logout())} />
+      <MenuButton icon='fa-sign-out-alt' text='Log Out' action={logoutAction} />
     </>
   )
 }

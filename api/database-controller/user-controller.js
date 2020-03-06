@@ -25,7 +25,7 @@ userController.checkUserExists = (name, email) => {
 }
 
 userController.logUserIn = (login, password) => {
-  const query = `SELECT name, email, lesson, points, session_id FROM users WHERE email = '${login}' OR name = '${login}' AND password = '${password}'`;
+  const query = `SELECT name, email, lesson, points, session_id FROM users WHERE (email = '${login}' OR name = '${login}') AND password = '${password}'`;
   return new Promise((res, rej) => {
     database.getSingle(query)
     .then((user) => {
@@ -39,7 +39,7 @@ userController.logUserIn = (login, password) => {
 }
 
 userController.logUserInViaSession = (session_id) => {
-  const query = `SELECT name, email, lesson, points FROM users WHERE session_id = '${session_id}'`;
+  const query = `SELECT name, email, lesson, points, session_id FROM users WHERE session_id = '${session_id}'`;
   return new Promise((res, rej) => {
     database.getSingle(query)
     .then((user) => {
