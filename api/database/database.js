@@ -7,26 +7,6 @@ const sqlConnectionSettings = {
   password: process.env.DB_ADMIN_PASS
 }
 
-const users = 
-[
-  {
-    name: 'migo',
-    email: 'migo@migosramek.ca',
-    password: 'migo',
-    lesson: 2,
-    points: 300
-  },
-  {
-    name: 'jobbo',
-    email: 'jobbo@migosramek.ca',
-    password: 'jobbo',
-    lesson: 5,
-    points: 20
-  },
-]
-
-
-
 const Database = function(config, callback) {
   Database.connection = mysql.createConnection(sqlConnectionSettings);
   callback();

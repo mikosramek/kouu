@@ -1,0 +1,16 @@
+{
+  "table":"words",
+  "primaryKey":"id",
+  "values": [
+    "lesson",
+    "english",
+    "korean",
+    "type"
+  ],
+  "presets": [
+    {
+      "value":1,
+      "index":0
+    }
+  ]
+}

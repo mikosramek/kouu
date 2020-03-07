@@ -18,7 +18,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "Authentication",
+            "name": "authentication",
             "required": true,
             "description": "The username and password to login with.",
             "schema": {
@@ -80,24 +80,142 @@
         }
       }
     },
-    "/accounts/logout/{session_id}": {
-      "delete": {
-        "summary": "Logout and delete a session",
-        "description": "Returns true if successful",
+    "/accounts/signup": {
+      "put": {
+        "summary": "Login and create a session",
+        "description": "Returns a session key if successful.",
         "parameters": [
           {
-            "in": "path",
-            "name": "session_id",
-            "type": "string",
+            "in": "body",
+            "name": "user account",
             "required": true,
-            "description": "The session id returned when logging in."
+            "description": "The user's data to create the account with",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success of deleting session and loggin out",
+            "description": "The session key",
             "schema": {
-              "type": "boolean"
+              "type": "object",
+              "properties": {
+                "session_id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Authentication not provided",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User already exists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons": {
+      "get": {
+        "summary": "Get general lesson data",
+        "description": "Returns a list of lessons that exist.",
+        "responses": {
+          "200": {
+            "description": "An array of lesson data.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "lesson_name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/{lesson_id}": {
+      "get": {
+        "summary": "Get specific lesson data",
+        "description": "Returns the details of a specific lesson",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lesson_id",
+            "required": true,
+            "description": "The is of the lesson being requested",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "authentication",
+            "required": true,
+            "description": "The username of the current user",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of lesson data.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "lesson_name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User forbidden from specific lesson",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
