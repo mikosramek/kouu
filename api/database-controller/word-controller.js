@@ -16,4 +16,12 @@ wordController.getLessons = () => {
   }) 
 }
 
+
+wordController.getWords = (id) => {
+  const query = `SELECT korean, english, type FROM words WHERE lesson=${id};`
+  return new Promise((res, rej) => {
+    database.generalQuery(query).then(res).catch(rej);
+  })
+}
+
 module.exports = wordController;

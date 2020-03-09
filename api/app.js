@@ -10,6 +10,7 @@ const swaggerDocument = require('./swagger.json');
 
 const router = require('./router');
 const database = require('./database/database');
+const listener = require('./util/internalHost');
 
 const app = express();
 
@@ -32,4 +33,5 @@ new database({}, () => {
   app.listen(PORT, () => {
     console.log(`Running on: localhost:${PORT}`);
   });
+  // app.listen(80, '0.0.0.0', listener);
 })

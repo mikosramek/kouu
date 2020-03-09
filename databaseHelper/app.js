@@ -63,14 +63,14 @@ const constructDatabaseQuery = (data) => {
   return new Promise((res, rej) => {
     getFileContent('./dbSchema.json').then(fileSchema => {
       const schema = JSON.parse(fileSchema);
-      const {table, values, presets } = schema;
+      const {table, values, presets, primaryKey } = schema;
       let query = `INSERT INTO ${table} (`;
       values.forEach(value => {
         query += `${value},`
       });
       query = clearLastChar(query);
       query += ')\n VALUES\n';
-      data.forEach(entry => {
+      data.forEach((entry, i) => {
         query += `(${spliceEntryAndPresets(entry, presets)}),`;
       });
       query = clearLastChar(query);
@@ -89,7 +89,7 @@ const sendQueryToDatabase = (query) => {
       if(err) return rej(err);
       connection.query(query, (err, result) => {
         connection.end();
-        if(err) return reject(err);
+        if(err) return rej(err);
         res(result);
       });
     })
@@ -102,7 +102,8 @@ const init = () => {
     .then(formatData)
     .then(constructDatabaseQuery)
     .then(sendQueryToDatabase)
-    .then(console.log);
+    .then(console.log)
+    .catch(console.log);
 }
 
 init();
