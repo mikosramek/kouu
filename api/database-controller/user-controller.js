@@ -17,10 +17,7 @@ userController.checkUserExists = (name, email) => {
         }else {
           rej('User already exists');
         }
-      }).catch((e) => {
-        console.log(e);
-        rej(e);
-      });
+      }).catch(rej);
   })
 }
 
@@ -31,10 +28,7 @@ userController.logUserIn = (login, password) => {
     .then((user) => {
       const { password, email, ...prunedUser } = user;
       res(prunedUser);
-    }).catch((e) => {
-      console.log(e);
-      rej(e);
-    });
+    }).catch(rej);
   })
 }
 
@@ -45,10 +39,7 @@ userController.logUserInViaSession = (session_id) => {
     .then((user) => {
       const { password, email, ...prunedUser } = user;
       res(prunedUser);
-    }).catch((e) => {
-      console.log(e);
-      rej(e);
-    });
+    }).catch(rej);
   })
 }
 
@@ -56,19 +47,25 @@ userController.signUserUp = (name, email, password, lesson, points, email_code, 
   return new Promise((res, rej) => {
     userController.checkUserExists(name, email)
       .then(() => {
-        console.log('user doesn\'t exist');
         const query = `INSERT INTO users (name, email, password, lesson, points, email_code, session_id)
                       VALUES ('${name}', '${email}', '${password}', ${lesson}, ${points}, '${email_code}', '${session_id}');`;
-        database.insert(query)
-          .then((confirmation) => {
-            res(confirmation);
-          }).catch((e) => {
-            rej(e);
-          });
-      }).catch((e) => {
-        rej(e);
-      });
+        database.insert(query).then(res).catch(rej);
+      }).catch(rej);
     });
+}
+
+userController.checkLessonAccess = (user, session_id) => {
+  return new Promise((res, rej) => {
+
+    // Exit if the auth isn't supplied
+    if(session_id === undefined) { return rej('Key:"session_id" missing from body.'); }
+    if(user === undefined) { return rej('Key:"user" missing from body.'); }
+
+    const query = `SELECT lesson FROM users where name="${user}" AND session_id="${session_id}";`;
+    database.getSingle(query).then(data => {
+      res(data.lesson);
+    }).catch(rej);
+  })
 }
 
 module.exports = userController;
